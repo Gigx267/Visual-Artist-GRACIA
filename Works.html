@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
     
     <audio id="bgMusic" loop preload="metadata">
-        <source src="mm3.mp3" type="audio/mpeg">
+        <source src="mm2.mp3" type="audio/mpeg">
     </audio>
 
     <style>
@@ -42,6 +42,10 @@
             min-height: 100vh;
         }
 
+        body.nav-open {
+            overflow: hidden;
+        }
+
         body::before {
             content: "";
             position: fixed;
@@ -52,304 +56,522 @@
             z-index: 1;
         }
 
-        /* HEADER */
+        /* --- ENTRY ANIMATIONS --- */
+        @keyframes revealUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- HEADER & NAVIGATION --- */
         header {
             position: fixed;
             top: 0; left: 0; right: 0;
-            height: 88px;
+            height: 96px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 0 5%;
             z-index: 1000;
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         header.scrolled {
-            height: 72px;
-            background: rgba(9, 9, 5, 0.92);
-            backdrop-filter: blur(20px);
+            height: 76px;
+            background: rgba(9, 9, 5, 0.85);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
             border-bottom: 1px solid var(--border-soft);
         }
 
         .logo-mark {
             font-family: var(--font-serif);
             font-weight: 700;
-            font-size: 1.1rem;
-            letter-spacing: 2.5px;
-            background: rgba(228, 179, 99, 0.1);
+            font-size: 1.05rem;
+            letter-spacing: 3px;
+            background: rgba(228, 179, 99, 0.05);
             border: 1px solid var(--border-soft);
-            padding: 12px 20px;
+            padding: 12px 24px;
             border-radius: 9999px;
             color: var(--gold-primary);
             text-decoration: none;
+            transition: all 0.3s ease;
+            z-index: 1100;
+        }
+
+        .logo-mark:hover {
+            background: rgba(228, 179, 99, 0.15);
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 20px rgba(228, 179, 99, 0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
         }
 
         .nav-links {
             display: flex;
-            gap: 2.4rem;
+            gap: 2.5rem;
             list-style: none;
         }
 
         .nav-links a {
             color: var(--text-secondary);
             text-decoration: none;
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 2px;
             position: relative;
+            padding: 6px 0;
+            transition: color 0.3s ease;
         }
 
         .nav-links a::after {
             content: '';
             position: absolute;
-            bottom: -4px;
+            bottom: 0;
             left: 0;
             width: 0;
-            height: 1.5px;
+            height: 1px;
             background: var(--gold-primary);
-            transition: width 0.35s ease;
+            transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .nav-links a:hover::after,
-        .nav-links a.active::after { width: 100%; }
-        .nav-links a:hover { color: var(--gold-primary); }
+        .nav-links a.active::after { 
+            width: 100%; 
+        }
+        
+        .nav-links a:hover,
+        .nav-links a.active { 
+            color: var(--gold-primary); 
+        }
 
-        .menu-toggle { display: none; }
+        .btn-contact {
+            background: rgba(255,255,245,0.05);
+            border: 1px solid var(--border-soft);
+            padding: 12px 26px;
+            border-radius: 999px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
 
-        /* HERO */
+        .btn-contact:hover {
+            background: var(--text-primary);
+            color: var(--bg-deep);
+            border-color: var(--text-primary);
+            transform: translateY(-2px);
+        }
+
+        /* MENU TOGGLE (HAMBURGER) */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 26px;
+            height: 18px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 1100;
+            position: relative;
+        }
+
+        .menu-toggle span {
+            width: 100%;
+            height: 1.5px;
+            background-color: var(--gold-primary);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transform-origin: center;
+        }
+
+        /* Hamburger Morph to X */
+        .menu-toggle.open span:nth-child(1) {
+            transform: translateY(8.5px) rotate(45deg);
+        }
+        .menu-toggle.open span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+        .menu-toggle.open span:nth-child(3) {
+            transform: translateY(-8.5px) rotate(-45deg);
+        }
+
+        /* --- HERO --- */
         .hero {
-            padding: 180px 5% 120px;
+            padding: 200px 5% 100px;
             text-align: center;
             position: relative;
             z-index: 2;
+            opacity: 0;
+            animation: revealUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         .hero h1 {
             font-family: var(--font-serif);
-            font-size: clamp(3.2rem, 9vw, 6.2rem);
-            font-weight: 800;
-            letter-spacing: -0.04em;
-            line-height: 1.05;
+            font-size: clamp(3.2rem, 8vw, 5.5rem);
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
             color: var(--gold-primary);
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .hero p {
-            font-size: 1.15rem;
-            max-width: 720px;
+            font-size: 1.1rem;
+            max-width: 640px;
             margin: 0 auto;
             color: var(--text-secondary);
+            font-weight: 300;
         }
 
-        /* GALLERY */
+        /* --- GALLERY GRID --- */
         .gallery {
-            max-width: 1600px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 0 5% 100px;
+            padding: 0 5% 120px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-            gap: 2.5rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem 2.5rem;
         }
 
         .artwork-card {
             background: var(--surface);
-            border-radius: 24px;
+            border-radius: 16px;
             overflow: hidden;
             border: 1px solid var(--border-soft);
-            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), 
+                        border-color 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                        box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1);
             cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            animation: revealUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
+        /* Staggered Row Loading Breaks */
+        .artwork-card:nth-child(3n-2) { animation-delay: 0.2s; }
+        .artwork-card:nth-child(3n-1) { animation-delay: 0.35s; }
+        .artwork-card:nth-child(3n) { animation-delay: 0.5s; }
+
         .artwork-card:hover {
-            transform: translateY(-16px);
-            box-shadow: 0 40px 90px -20px rgba(228, 179, 99, 0.28);
+            transform: translateY(-10px);
+            border-color: rgba(228, 179, 99, 0.35);
+            box-shadow: 0 30px 60px -15px rgba(9, 9, 5, 0.8), 
+                        0 20px 40px -20px rgba(228, 179, 99, 0.15);
         }
 
         .artwork-image {
             position: relative;
-            height: 460px;
+            padding-top: 115%; /* Premium Aspect Ratio */
             overflow: hidden;
+            background: #0d0d0a;
         }
 
         .artwork-image img {
-            width: 100%;
-            height: 100%;
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             object-fit: cover;
-            transition: transform 0.9s cubic-bezier(0.23, 1, 0.32, 1);
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .artwork-card:hover img {
-            transform: scale(1.08);
+            transform: scale(1.05);
         }
 
         .wip-badge {
             position: absolute;
-            top: 22px;
-            right: 22px;
+            top: 20px; right: 20px;
             background: var(--gold-primary);
             color: #0A0A08;
-            font-size: 0.76rem;
-            padding: 7px 18px;
+            font-size: 0.7rem;
+            padding: 6px 14px;
             border-radius: 9999px;
-            font-weight: 700;
-            letter-spacing: 1px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
             z-index: 10;
+            text-transform: uppercase;
         }
 
         .artwork-info {
-            padding: 2rem;
+            padding: 1.75rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
         }
 
         .artwork-title {
             font-family: var(--font-serif);
-            font-size: 1.65rem;
-            margin-bottom: 0.4rem;
+            font-size: 1.45rem;
+            font-weight: 400;
+            margin-bottom: 0.3rem;
+            color: var(--text-primary);
         }
 
         .artwork-subtitle {
             color: var(--gold-primary);
-            font-size: 0.9rem;
-            letter-spacing: 1.5px;
+            font-size: 0.82rem;
+            letter-spacing: 1px;
             margin-bottom: 1.2rem;
+            font-weight: 400;
+            text-transform: uppercase;
         }
 
         .artwork-desc {
             color: var(--text-secondary);
-            font-size: 0.97rem;
-            line-height: 1.75;
-            margin-bottom: 1.6rem;
+            font-size: 0.92rem;
+            line-height: 1.65;
+            margin-bottom: 1.75rem;
             display: -webkit-box;
-            -webkit-line-clamp: 4;
+            -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
+            font-weight: 300;
         }
 
         .artwork-meta {
+            margin-top: auto;
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
             border-top: 1px solid var(--border-soft);
-            padding-top: 1.4rem;
+            padding-top: 1.25rem;
+        }
+
+        .artwork-dimensions {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
         }
 
         .price {
             font-family: var(--font-serif);
-            font-size: 1.45rem;
+            font-size: 1.3rem;
             color: var(--gold-primary);
-            font-weight: 600;
+            font-weight: 500;
         }
 
-        .btn-buy {
-            background: transparent;
-            border: 1px solid var(--gold-primary);
-            color: var(--gold-primary);
-            padding: 11px 26px;
-            border-radius: 9999px;
-            font-size: 0.85rem;
-            letter-spacing: 1.4px;
-            transition: all 0.3s ease;
-        }
-
-        .btn-buy:hover {
-            background: var(--gold-primary);
-            color: var(--bg-deep);
-        }
-
-        /* LIGHTBOX */
+        /* --- LIGHTBOX --- */
         #lightbox {
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(5, 5, 2, 0.96);
-            backdrop-filter: blur(12px);
+            background: rgba(5, 5, 2, 0.98);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             z-index: 2000;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 40px;
         }
 
         .lightbox-content {
-            max-width: 1100px;
+            max-width: 1000px;
             width: 100%;
-            background: #11110d;
-            border-radius: 20px;
+            background: #0f0f0c;
+            border-radius: 16px;
             overflow: hidden;
             border: 1px solid var(--border-soft);
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+        }
+
+        .lightbox-image-wrapper {
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 500px;
         }
 
         .lightbox-image {
             width: 100%;
-            max-height: 70vh;
+            max-height: 80vh;
             object-fit: contain;
-            background: #000;
         }
 
         .lightbox-info {
-            padding: 2rem;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .close-btn {
             position: absolute;
-            top: 30px;
-            right: 30px;
-            font-size: 2rem;
-            color: var(--gold-primary);
+            top: 40px; right: 40px;
+            font-size: 2.5rem;
+            color: var(--text-secondary);
             background: none;
             border: none;
             cursor: pointer;
             z-index: 2010;
+            transition: color 0.3s;
         }
 
-        /* MUSIC */
+        .close-btn:hover { color: var(--gold-primary); }
+
+        /* --- AMBIENT AUDIO WIDGET --- */
         .music-ambient {
             position: fixed;
-            bottom: 32px;
-            right: 32px;
+            bottom: 32px; left: 32px;
             z-index: 1100;
-            background: rgba(10,10,8,0.8);
-            backdrop-filter: blur(16px);
-            padding: 12px 20px;
-            border-radius: 50px;
+            background: rgba(14, 14, 11, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 10px 18px;
+            border-radius: 999px;
             border: 1px solid var(--border-soft);
             display: flex;
             align-items: center;
-            gap: 14px;
-            font-size: 0.8rem;
+            gap: 12px;
         }
 
-        /* RESPONSIVE */
-        @media (max-width: 900px) {
-            .nav-links { display: none; }
-            .menu-toggle { display: flex; flex-direction: column; gap: 5px; cursor: pointer; }
-            .gallery { grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 2rem; }
-            .artwork-image { height: 400px; }
+        .music-ambient span {
+            font-size: 0.85rem;
+            color: var(--gold-primary);
         }
 
-        @media (max-width: 600px) {
-            .hero { padding: 140px 5% 80px; }
-            .gallery { padding: 0 4% 80px; }
+        .music-btn {
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            font-family: var(--font-sans);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .music-btn:hover { color: var(--gold-primary); }
+
+        /* --- RESPONSIVE WORK & BREAKPOINTS --- */
+        @media (max-width: 1024px) {
+            .gallery { grid-template-columns: repeat(2, 1fr); gap: 2.5rem 2rem; }
+            .lightbox-content { grid-template-columns: 1fr; }
+            .lightbox-image-wrapper { min-height: auto; }
+            .lightbox-info { padding: 2rem; }
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle { display: flex; }
+            
+            /* High-End Mobile Navigation Overlay */
+            .nav-container {
+                position: fixed;
+                inset: 0;
+                background: #090906;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 3.5rem;
+                padding: 40px;
+                z-index: 1000;
+                opacity: 0;
+                visibility: hidden;
+                transition: opacity 0.4s ease, visibility 0.4s ease;
+            }
+
+            .nav-container.open {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 2.2rem;
+            }
+
+            .nav-links a {
+                font-size: 1.25rem;
+                letter-spacing: 3px;
+            }
+
+            .btn-contact {
+                font-size: 0.85rem;
+                padding: 14px 36px;
+            }
+
+            /* Mandatory 2-by-2 Grid Layout for Mobile */
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.25rem 1rem;
+                padding: 0 4% 80px;
+            }
+
+            .artwork-info {
+                padding: 1rem;
+            }
+
+            .artwork-title {
+                font-size: 1.15rem;
+            }
+
+            .artwork-subtitle {
+                font-size: 0.72rem;
+                margin-bottom: 0.6rem;
+                letter-spacing: 0.5px;
+            }
+
+            .artwork-desc {
+                display: none; /* Keeps structural balance elegant in 2x2 view */
+            }
+
+            .artwork-meta {
+                padding-top: 0.75rem;
+            }
+
+            .artwork-dimensions {
+                font-size: 0.72rem;
+            }
+
+            .price {
+                font-size: 1.1rem;
+            }
+
+            .hero { padding: 150px 6% 60px; }
+            #lightbox { padding: 15px; }
+            .close-btn { top: 20px; right: 20px; font-size: 2rem; }
         }
     </style>
 </head>
 <body>
 
 <header id="mainHeader">
-    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
-        <span style="width:28px;height:2px;background:#E4B363;display:block;"></span>
-        <span style="width:28px;height:2px;background:#E4B363;display:block;"></span>
-        <span style="width:28px;height:2px;background:#E4B363;display:block;"></span>
+    <a href="index.html" class="logo-mark">GLK</a>
+
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
     </button>
     
-    <div class="nav-container">
+    <div class="nav-container" id="navContainer">
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="Biography.html">Biography</a></li>
             <li><a href="Works.html" class="active">ArtWorks</a></li>
             <li><a href="shop.html">Shop Accessories</a></li>
         </ul>
-        <a href="contact.html" class="btn-contact" style="background:rgba(255,255,245,0.08);border:1px solid var(--border-soft);padding:10px 24px;border-radius:999px;color:var(--text-primary);text-decoration:none;font-size:0.78rem;">Contact Artist</a>
+        <a href="contact.html" class="btn-contact">Contact Artist</a>
     </div>
 </header>
 
@@ -358,7 +580,7 @@
     <p>Limited edition mixed-media paintings celebrating African femininity, Adinkrahene symbolism, and spiritual sovereignty.</p>
 </section>
 
-<div class="gallery" id="gallery">
+<main class="gallery" id="gallery">
     <!-- Card 1 -->
     <div class="artwork-card" onclick="openLightbox(this)">
         <div class="artwork-image">
@@ -366,10 +588,10 @@
         </div>
         <div class="artwork-info">
             <h2 class="artwork-title">Helimu</h2>
-            <div class="artwork-subtitle">Bold Line Fauvism &amp; Mixed Media with Strass</div>
+            <div class="artwork-subtitle">Bold Line Fauvism &amp; Mixed Media</div>
             <p class="artwork-desc">Celebrates the vibrant architecture of the mind and beauty with neo-expressionist fire.</p>
             <div class="artwork-meta">
-                <div><strong>42 × 59.4 cm</strong><br>Framed + Certificate</div>
+                <div class="artwork-dimensions"><strong>42 × 59.4 cm</strong><br>Framed + CoA</div>
                 <div class="price">€411</div>
             </div>
         </div>
@@ -385,7 +607,7 @@
             <div class="artwork-subtitle">Mixed Media with Real Cauris</div>
             <p class="artwork-desc">Symbolizes the power of a single spark to illuminate darkness and change the world.</p>
             <div class="artwork-meta">
-                <div><strong>42 × 59.4 cm</strong></div>
+                <div class="artwork-dimensions"><strong>42 × 59.4 cm</strong><br>Standard Cut</div>
                 <div class="price">€511</div>
             </div>
         </div>
@@ -398,10 +620,10 @@
         </div>
         <div class="artwork-info">
             <h2 class="artwork-title">Roho Yangu</h2>
-            <div class="artwork-subtitle">Acrylic &amp; Mixed Media with Shells • A2</div>
+            <div class="artwork-subtitle">Acrylic &amp; Mixed Media with Shells</div>
             <p class="artwork-desc">“My Heart” — a spiritual exploration of self-connection and ancestral wisdom.</p>
             <div class="artwork-meta">
-                <div><strong>42 × 59.4 cm</strong><br>Framed + Certificate</div>
+                <div class="artwork-dimensions"><strong>42 × 59.4 cm</strong><br>Framed + CoA</div>
                 <div class="price">€613</div>
             </div>
         </div>
@@ -417,7 +639,7 @@
             <div class="artwork-subtitle">Acrylic &amp; Mixed Media with Shells</div>
             <p class="artwork-desc">Bridges ancient cowrie symbolism with bold contemporary expressionism.</p>
             <div class="artwork-meta">
-                <div><strong>42 × 59.4 cm</strong><br>Framed + Certificate</div>
+                <div class="artwork-dimensions"><strong>42 × 59.4 cm</strong><br>Framed + CoA</div>
                 <div class="price">€417</div>
             </div>
         </div>
@@ -430,10 +652,10 @@
         </div>
         <div class="artwork-info">
             <h2 class="artwork-title">Muda</h2>
-            <div class="artwork-subtitle">Bold Line Fauvism • Mixed Media with Strass • 2024</div>
+            <div class="artwork-subtitle">Bold Line Fauvism • Mixed Media</div>
             <p class="artwork-desc">“Time” — exploring the emotional and cyclical nature of periods and existence.</p>
             <div class="artwork-meta">
-                <div><strong>42 × 59.4 cm</strong><br>Framed + Certificate</div>
+                <div class="artwork-dimensions"><strong>42 × 59.4 cm</strong><br>Framed + CoA</div>
                 <div class="price">€397</div>
             </div>
         </div>
@@ -446,10 +668,10 @@
         </div>
         <div class="artwork-info">
             <h2 class="artwork-title">Hatima</h2>
-            <div class="artwork-subtitle">Bold Line Fauvism • Mixed Media • 2024</div>
+            <div class="artwork-subtitle">Bold Line Fauvism • Mixed Media</div>
             <p class="artwork-desc">A powerful critique of destiny and a celebration of introspection and vibrant energy.</p>
             <div class="artwork-meta">
-                <div><strong>42 × 59.4 cm</strong><br>Framed + Certificate</div>
+                <div class="artwork-dimensions"><strong>42 × 59.4 cm</strong><br>Framed + CoA</div>
                 <div class="price">€417</div>
             </div>
         </div>
@@ -462,10 +684,10 @@
         </div>
         <div class="artwork-info">
             <h2 class="artwork-title">Voice of a Silenced Grace</h2>
-            <div class="artwork-subtitle">Bold Line Fauvism • Mixed Media with Cauris • 2024</div>
+            <div class="artwork-subtitle">Bold Line Fauvism • Mixed Media</div>
             <p class="artwork-desc">Inspired by the Pwo mask of the Kongo kingdom — a meditation on African feminine identity.</p>
             <div class="artwork-meta">
-                <div><strong>42 × 59.4 cm</strong><br>Framed + Certificate</div>
+                <div class="artwork-dimensions"><strong>42 × 59.4 cm</strong><br>Framed + CoA</div>
                 <div class="price">€317</div>
             </div>
         </div>
@@ -478,10 +700,10 @@
         </div>
         <div class="artwork-info">
             <h2 class="artwork-title">Wakati</h2>
-            <div class="artwork-subtitle">Bold Line Fauvism • Mixed Media with Discarded Watches • 2025</div>
+            <div class="artwork-subtitle">Bold Line Fauvism • Mixed Media</div>
             <p class="artwork-desc">Activism piece reclaiming time and agency for Black women.</p>
             <div class="artwork-meta">
-                <div><strong>42 × 59.4 cm</strong><br>Framed + Certificate</div>
+                <div class="artwork-dimensions"><strong>42 × 59.4 cm</strong><br>Framed + CoA</div>
                 <div class="price">€635</div>
             </div>
         </div>
@@ -495,47 +717,74 @@
         </div>
         <div class="artwork-info">
             <h2 class="artwork-title">The Queen of the Blooms</h2>
-            <div class="artwork-subtitle">Mixed Media • 2026 • Work in Progress</div>
+            <div class="artwork-subtitle">Mixed Media • Work in Progress</div>
             <p class="artwork-desc">Evolution of Adinkrahene and floral spirit into refined modern femininity.</p>
             <div class="artwork-meta">
-                <div><strong>42 × 59.4 cm</strong><br>Framed + Certificate</div>
+                <div class="artwork-dimensions"><strong>42 × 59.4 cm</strong><br>Framed + CoA</div>
                 <div class="price">€1,125</div>
             </div>
         </div>
     </div>
-</div>
+</main>
 
-<!-- Lightbox -->
-<div id="lightbox">
-    <button class="close-btn" onclick="closeLightbox()">×</button>
+<!-- Lightbox Overlay -->
+<div id="lightbox" role="dialog" aria-modal="true">
+    <button class="close-btn" onclick="closeLightbox()" aria-label="Close details">×</button>
     <div class="lightbox-content">
-        <img id="lightbox-image" class="lightbox-image" alt="">
+        <div class="lightbox-image-wrapper">
+            <img id="lightbox-image" class="lightbox-image" alt="">
+        </div>
         <div class="lightbox-info" id="lightbox-info"></div>
     </div>
 </div>
 
-<!-- Music Widget -->
+<!-- Ambient Audio Control -->
 <div class="music-ambient">
     <span>♫</span>
-    <button id="musicPlayBtn">▶ Play</button>
-    <button id="musicMuteBtn">🔇 Mute</button>
+    <button id="musicPlayBtn" class="music-btn">Play</button>
+    <button id="musicMuteBtn" class="music-btn">Mute</button>
 </div>
 
 <script>
-    // Lightbox
+    // --- SLEEK MOBILE MENU INTERACTION ---
+    const menuToggle = document.getElementById('menuToggle');
+    const navContainer = document.getElementById('navContainer');
+    const body = document.body;
+
+    menuToggle.addEventListener('click', () => {
+        const isOpen = menuToggle.classList.toggle('open');
+        navContainer.classList.toggle('open');
+        body.classList.toggle('nav-open', isOpen);
+        menuToggle.setAttribute('aria-expanded', isOpen);
+    });
+
+    // Close mobile nav when clicking a link
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            menuToggle.classList.remove('open');
+            navContainer.classList.remove('open');
+            body.classList.remove('nav-open');
+            menuToggle.setAttribute('aria-expanded', 'false');
+        });
+    });
+
+    // --- ARTWORK LIGHTBOX SYSTEM ---
     function openLightbox(card) {
         const imgSrc = card.querySelector('img').src;
         const title = card.querySelector('.artwork-title').textContent;
         const subtitle = card.querySelector('.artwork-subtitle').textContent;
-        const desc = card.querySelector('.artwork-desc').textContent;
+        
+        // Handle fallback text safely if descriptions are hidden on mobile sizing templates
+        const descEl = card.querySelector('.artwork-desc');
+        const desc = descEl ? descEl.textContent : "Limited execution mixed-media masterpiece.";
         const meta = card.querySelector('.artwork-meta').innerHTML;
 
         document.getElementById('lightbox-image').src = imgSrc;
         document.getElementById('lightbox-info').innerHTML = `
-            <h2 style="font-family:var(--font-serif);font-size:2rem;margin-bottom:0.5rem;">${title}</h2>
-            <p style="color:var(--gold-primary);margin-bottom:1rem;">${subtitle}</p>
-            <p style="color:var(--text-secondary);line-height:1.8;margin-bottom:1.5rem;">${desc}</p>
-            <div style="border-top:1px solid var(--border-soft);padding-top:1rem;">${meta}</div>
+            <h2 style="font-family:var(--font-serif); font-size:2.2rem; font-weight:400; margin-bottom:0.4rem; color:var(--text-primary);">${title}</h2>
+            <p style="color:var(--gold-primary); font-size:0.85rem; letter-spacing:1px; text-transform:uppercase; margin-bottom:1.5rem;">${subtitle}</p>
+            <p style="color:var(--text-secondary); font-size:0.98rem; line-height:1.75; margin-bottom:2rem; font-weight:300;">${desc}</p>
+            <div style="border-top:1px solid var(--border-soft); padding-top:1.5rem; display:flex; justify-content:between; align-items:flex-end;">${meta}</div>
         `;
         document.getElementById('lightbox').style.display = 'flex';
     }
@@ -544,22 +793,25 @@
         document.getElementById('lightbox').style.display = 'none';
     }
 
-    // Close lightbox with Escape key
+    document.getElementById('lightbox').addEventListener('click', (e) => {
+        if(e.target === document.getElementById('lightbox')) closeLightbox();
+    });
+
     document.addEventListener('keydown', e => {
         if (e.key === "Escape") closeLightbox();
     });
 
-    // Music Player
+    // --- BACKGROUND MUSIC FLOW ---
     const bgMusic = document.getElementById('bgMusic');
     const playBtn = document.getElementById('musicPlayBtn');
     const muteBtn = document.getElementById('musicMuteBtn');
 
     if (bgMusic) {
-        bgMusic.volume = 0.32;
+        bgMusic.volume = 0.25;
 
         const updateUI = () => {
-            playBtn.textContent = bgMusic.paused ? '▶ Play' : '⏸ Pause';
-            muteBtn.textContent = bgMusic.muted ? '🔊 Unmute' : '🔇 Mute';
+            playBtn.textContent = bgMusic.paused ? 'Play' : 'Pause';
+            muteBtn.textContent = bgMusic.muted ? 'Unmute' : 'Mute';
         };
 
         playBtn.addEventListener('click', () => {
@@ -572,16 +824,13 @@
             updateUI();
         });
 
-        // Autoplay with user gesture fallback
         window.addEventListener('load', () => bgMusic.play().catch(() => {}));
     }
 
-    // Header scroll
+    // --- HEADER DEPTH TRIGGER ---
     window.addEventListener('scroll', () => {
-        document.getElementById('mainHeader').classList.toggle('scrolled', window.scrollY > 50);
+        document.getElementById('mainHeader').classList.toggle('scrolled', window.scrollY > 40);
     });
-
-    console.log('%cGracia Lwanzo Kasongo Artworks — Optimized & Enhanced', 'color:#E4B363;font-size:14px');
 </script>
 </body>
 </html>
