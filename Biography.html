@@ -12,8 +12,8 @@
     
     <!-- Background music player with advanced UX: subtle hover controls & smooth fade -->
     <audio id="bgMusic" loop preload="metadata" volume="0.35">
-        <source src="mm2.mp3" type="audio/mpeg">
-        <source src="mm2.mp3" type="audio/ogg">
+        <source src="mm3.mp3" type="audio/mpeg">
+        <source src="mm3.mp3" type="audio/ogg">
     </audio>
 
     <style>
@@ -448,7 +448,7 @@
 
 <!-- Biography section (enhanced with rich micro-interactions) -->
 <section id="about">
-    <div class="hero-bg" style="background-image: url('w4.png');"></div>
+    <div class="hero-bg" style="background-image: url('art\ \(4\).jpeg');"></div>
     <div class="content story-content">
         <h1 class="fade-up" style="font-size: clamp(2rem, 6vw, 3.6rem); margin-bottom: 1.8rem; color: var(--gold-primary);">Biography</h1>
         <div class="story-text">
@@ -470,6 +470,32 @@
                 <p class="fade-up delay-300">Her figurative compositions elevate women of colour across Africa and the vast global diaspora. By mapping themes of soft femininity, unapologetic leadership, interior mental health, and shared ancestral records, her canvases function simultaneously as fine art collection anchors and profound visual declarations.</p>
             </div>
         </section>
+<!-- BIOGRAPHY / COLLECTORS SECTION -->
+<section id="about" class="story-section">
+    <div class="container">
+        <div class="story-grid">
+            <!-- Left: Text Content -->
+            <div class="story-text-content">
+                <h1 class="fade-up" style="font-size: clamp(2rem, 6vw, 3.6rem); margin-bottom: 1.8rem; color: var(--gold-primary);">For Collectors</h1>
+                
+                <div class="story-text">
+                    <p class="fade-up delay-100">Every artwork is delivered with a <strong class="highlight">certificate of authenticity</strong>, attesting to its originality and provenance.</p>
+                    
+                    <p class="fade-up delay-200">Created in limited quantities, these works are for collectors seeking singular pieces that cannot be replicated and that viewers will never forget.</p>
+                    
+                    <p class="fade-up delay-300">To collect my work is to carry the circle of <span class="highlight">Adinkrahene</span> — a soul of leadership, memory, and love — into your world.</p>
+                </div>
+            </div>
+
+            <!-- Right: Image -->
+            <div class="story-image">
+                <div class="image-wrapper">
+                    <img src="art (8).jpeg" alt="Gracia Lwanzo Kasongo Artwork" class="featured-artwork">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
         <!-- ARTIST STATEMENT SECTION -->
         <section class="story-block">
@@ -482,6 +508,66 @@
                
             </div>
         </section>
+<style> .story-section {
+    padding: 100px 5%;
+    background: var(--background-color);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.story-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.story-text-content {
+    padding-right: 2rem;
+}
+
+.story-image {
+    position: relative;
+}
+
+.image-wrapper {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.featured-artwork {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.6s ease;
+}
+
+.featured-artwork:hover {
+    transform: scale(1.03);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .story-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .story-text-content {
+        padding-right: 0;
+        order: 2;
+    }
+    
+    .story-image {
+        order: 1;
+    }
+} </style>
+        
     </article>
 <!-- custom music control widget: elegant integration with auto-play attempt + seamless UI -->
 <div id="ambientMusicControl" class="music-ambient">
