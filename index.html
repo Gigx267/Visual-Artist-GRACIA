@@ -19,6 +19,7 @@
     <style>
         /* ------------------------------------------------------------------
            DESIGN SYSTEM: BLENDING LUXURY MINIMALISM + ORGANIC TOUCHES
+           UPDATED: Hero Carousel + Biography persistent background image
         ------------------------------------------------------------------ */
         * {
             margin: 0;
@@ -62,7 +63,6 @@
             z-index: 5;
         }
 
-        /* HYBRID CURSOR MICRO-INTERACTION (optional elegant hover) */
         a, button, .btn-contact, .logo-box {
             cursor: pointer;
             transition: var(--transition-smooth);
@@ -93,7 +93,6 @@
             box-shadow: 0 12px 30px -12px rgba(0,0,0,0.5);
         }
 
-        /* distinctive minimalist monogram / logo */
         .logo-mark {
             font-family: var(--font-serif);
             font-weight: 700;
@@ -116,7 +115,6 @@
             letter-spacing: 3px;
         }
 
-        /* navigation row */
         .nav-container {
             display: flex;
             align-items: center;
@@ -182,7 +180,6 @@
             letter-spacing: 2.5px;
         }
 
-        /* mobile toggle button */
         .menu-toggle {
             display: none;
             flex-direction: column;
@@ -203,7 +200,6 @@
             border-radius: 2px;
         }
 
-        /* global sections */
         section {
             min-height: 100vh;
             width: 100%;
@@ -216,8 +212,71 @@
             overflow-x: hidden;
         }
 
-        /* hero & about background imagery with parallax elegance */
-        .hero-bg {
+        /* HERO SECTION with CAROUSEL BACKGROUND */
+        .hero-section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background-color: var(--bg-deep);
+        }
+        
+        .hero-carousel-bg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center 30%;
+            background-repeat: no-repeat;
+            opacity: 0;
+            transition: opacity 1.8s cubic-bezier(0.2, 0.9, 0.3, 1.1), transform 1.2s ease-out;
+            transform: scale(1.02);
+            will-change: opacity, transform;
+        }
+        
+        .carousel-slide.active {
+            opacity: 1;
+            transform: scale(1);
+            z-index: 2;
+        }
+        
+        /* gradient mask on right side for text readability */
+        .hero-carousel-bg::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(10,10,8,0.75) 0%, rgba(10,10,8,0.4) 45%, rgba(10,10,8,0.1) 75%);
+            z-index: 3;
+            pointer-events: none;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 20;
+            max-width: 680px;
+        }
+        
+        /* BIOGRAPHY SECTION with persistent background image (static, elegant) */
+        #about {
+            position: relative;
+            background-color: var(--bg-deep);
+        }
+        
+        .biography-static-bg {
             position: absolute;
             right: 0;
             top: 0;
@@ -228,22 +287,20 @@
             z-index: 1;
             mask-image: linear-gradient(to left, black 65%, transparent 100%);
             -webkit-mask-image: linear-gradient(to left, black 65%, transparent 100%);
-            opacity: 0;
-            transition: opacity 1.8s cubic-bezier(0.2, 0.9, 0.3, 1.1), transform 1.2s ease-out;
-            transform: scale(1.02);
+            opacity: 0.35;
+            transition: opacity 1.2s ease-out;
+            pointer-events: none;
         }
-
-        body.loaded .hero-bg {
-            opacity: 1;
-            transform: scale(1);
+        
+        /* For better readability on smaller screens */
+        @media (max-width: 880px) {
+            .biography-static-bg {
+                width: 100%;
+                mask-image: none;
+                opacity: 0.12;
+            }
         }
-
-        #about .hero-bg {
-            width: 55%;
-            mask-image: linear-gradient(to left, black 60%, transparent 100%);
-            opacity: 0.3;
-        }
-
+        
         .content {
             position: relative;
             z-index: 12;
@@ -322,7 +379,6 @@
             border-radius: 0 8px 8px 0;
         }
 
-        /* music control widget — polished and unobtrusive */
         .music-ambient {
             position: fixed;
             bottom: 28px;
@@ -362,8 +418,61 @@
             letter-spacing: 1px;
             color: var(--text-secondary);
         }
+        
+        /* collectors section styles */
+        .story-section {
+            padding: 100px 5%;
+            background: var(--bg-deep);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .story-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        .story-text-content {
+            padding-right: 2rem;
+        }
+        .image-wrapper {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        .featured-artwork {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.6s ease;
+        }
+        .featured-artwork:hover {
+            transform: scale(1.03);
+        }
+        
+        /* story blocks */
+        .story-block {
+            min-height: auto;
+            background: rgba(0,0,0,0.2);
+        }
+        
+        @media (max-width: 768px) {
+            .story-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .story-text-content {
+                padding-right: 0;
+                order: 2;
+            }
+            .story-image {
+                order: 1;
+            }
+        }
 
-        /* responsive magic */
         @media (max-width: 880px) {
             header {
                 padding: 0 6%;
@@ -407,10 +516,8 @@
                 padding: 0 7%;
                 padding-top: calc(var(--header-h) + 1rem);
             }
-            .hero-bg, #about .hero-bg {
-                width: 100%;
-                mask-image: none;
-                opacity: 0.12 !important;
+            .hero-carousel-bg::after {
+                background: linear-gradient(to right, rgba(10,10,8,0.85) 0%, rgba(10,10,8,0.7) 60%, rgba(10,10,8,0.5) 100%);
             }
             h1 {
                 font-size: 3rem;
@@ -443,19 +550,26 @@
     </div>
 </header>
 
-<!-- Hero Section -->
-<section id="home">
-    <div class="hero-bg" style="background-image: url('k1.jpg');"></div>
-    <div class="content">
-        <div class="subtitle fade-up">Visual Artist & Art Diplomat</div>
-        <h1 class="fade-up delay-100">GRACIA<br>LWANZO<br>KASONGO</h1>
-        <div class="tagline fade-up delay-200">Sovereignty, Memory, and Love</div>
+<!-- HERO SECTION WITH CAROUSEL (3 images cycling every 7 seconds) -->
+<section id="hero" class="hero-section">
+    <div class="hero-carousel-bg" id="heroCarousel">
+        <div class="carousel-slide" style="background-image: url('k1.jpg');"></div>
+        <div class="carousel-slide" style="background-image: url('art\ \(6\).jpeg');"></div>
+        <div class="carousel-slide" style="background-image: url('art\ \(10\).jpeg');"></div>
+    </div>
+    <div class="hero-content">
+        <div class="subtitle fade-up">Visual Artist </div>
+        <h1 class="fade-up delay-100">Gracia Lwanzo<br>Kasongo</h1>
+        <div class="tagline fade-up delay-200">SOVEREIGNTY • MEMORY • LOVE</div>
+        <div class="story-text fade-up delay-300" style="margin-top: 2rem;">
+            <p>Exploring Adinkrahene symbolism, textured surfaces, and the feminine essence of the African diaspora. Based in the Netherlands, creating singular works that echo leadership and ancestral memory.</p>
+        </div>
     </div>
 </section>
 
-<!-- Biography section (enhanced with rich micro-interactions) -->
+<!-- BIOGRAPHY SECTION with persistent background image -->
 <section id="about">
-    <div class="hero-bg" style="background-image: url('w1.png');"></div>
+    <div class="biography-static-bg" style="background-image: url('art\ \(9\).jpeg');"></div>
     <div class="content story-content">
         <h1 class="fade-up" style="font-size: clamp(2rem, 6vw, 3.6rem); margin-bottom: 1.8rem; color: var(--gold-primary);">Biography</h1>
         <div class="story-text">
@@ -468,7 +582,46 @@
     </div>
 </section>
 
-<!-- custom music control widget: elegant integration with auto-play attempt + seamless UI -->
+<!-- Extended BIOGRAPHY SECTION (Story block) -->
+<section class="story-block">
+    <div class="story-text">
+        <p class="fade-up delay-100">Born in the vibrant cultural landscape of the <strong class="highlight">Democratic Republic of Congo</strong> and currently establishing her creative practice in the <strong class="highlight">Netherlands</strong>, Gracia Lwanzo Kasongo stands at the critical intersection of modern visual expression and rigorous historical memory. Her multi-layered path combines profound lived migrations with formal insights acquired from global art diplomacy.</p>
+        
+        <p class="fade-up delay-200">Kasongo's visual vocabulary translates complex dualities into physical experiences. Her signature style incorporates meticulously built-up textured surfaces layered with gold accents, pearls, raw shells, and deliberate touches of light-receptive elements. This tactile depth serves as an active space where structural displacement transforms directly into ultimate, self-determined beauty.</p>
+        
+        <p class="fade-up delay-300">Her figurative compositions elevate women of colour across Africa and the vast global diaspora. By mapping themes of soft femininity, unapologetic leadership, interior mental health, and shared ancestral records, her canvases function simultaneously as fine art collection anchors and profound visual declarations.</p>
+    </div>
+</section>
+
+<!-- FOR COLLECTORS SECTION -->
+<section id="collectors" class="story-section">
+    <div class="container">
+        <div class="story-grid">
+            <div class="story-text-content">
+                <h1 class="fade-up" style="font-size: clamp(2rem, 6vw, 3.6rem); margin-bottom: 1.8rem; color: var(--gold-primary);">For Collectors</h1>
+                <div class="story-text">
+                    <p class="fade-up delay-100">Every artwork is delivered with a <strong class="highlight">certificate of authenticity</strong>, attesting to its originality and provenance.</p>
+                    <p class="fade-up delay-200">Created in limited quantities, these works are for collectors seeking singular pieces that cannot be replicated and that viewers will never forget.</p>
+                    <p class="fade-up delay-300">To collect my work is to carry the circle of <span class="highlight">Adinkrahene</span> — a soul of leadership, memory, and love — into your world.</p>
+                </div>
+            </div>
+            <div class="story-image">
+                <div class="image-wrapper">
+                    <img src="art (8).jpeg" alt="Gracia Lwanzo Kasongo Artwork" class="featured-artwork">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ARTIST STATEMENT SECTION -->
+<section class="story-block" style="min-height: auto;">
+    <div class="story-text">
+        <p class="fade-up delay-100">"My practice is an enduring exploration of personal sovereignty, continuous memory, and absolute love. At the center of every painting rests the sacred Ghanaian <span class="highlight">Adinkrahene symbol</span>—the sovereign ruler, core circle, and undisputed foundation of all Adinkra expressions. For me, this geometric ring is not merely decorative; it is a profound declaration of inner leadership, untouchable strength, and human presence."</p>
+    </div>
+</section>
+
+<!-- Music control widget -->
 <div id="ambientMusicControl" class="music-ambient">
     <span class="music-status">♫</span>
     <button id="musicPlayBtn" aria-label="Play">▶ Play</button>
@@ -477,35 +630,60 @@
 
 <script>
     (function(){
+        // ------------------- HERO CAROUSEL (3 images, 7 seconds interval) -------------------
+        const slides = document.querySelectorAll('#heroCarousel .carousel-slide');
+        let currentSlideIndex = 0;
+        let carouselInterval;
+        
+        function activateSlide(index) {
+            if (!slides.length) return;
+            slides.forEach((slide, i) => {
+                if (i === index) {
+                    slide.classList.add('active');
+                } else {
+                    slide.classList.remove('active');
+                }
+            });
+        }
+        
+        function nextSlide() {
+            currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+            activateSlide(currentSlideIndex);
+        }
+        
+        function startCarousel() {
+            if (carouselInterval) clearInterval(carouselInterval);
+            carouselInterval = setInterval(nextSlide, 7000); // 7 seconds
+        }
+        
+        if (slides.length > 0) {
+            // Initially set first slide active
+            activateSlide(0);
+            startCarousel();
+            // Optional: pause carousel on hover for better UX? we skip to keep smooth.
+        }
+        
         // ---------- ENHANCED UX & SMOOTH SCROLL ----------
         const header = document.getElementById('mainHeader');
         const menuToggle = document.getElementById('menuToggle');
         const navContainer = document.getElementById('navContainer');
         const navLinks = document.querySelectorAll('.nav-link');
-        const sections = document.querySelectorAll('section');
+        const sections = document.querySelectorAll('#hero, #about, .story-section, #collectors, .story-block');
         const bgMusic = document.getElementById('bgMusic');
         const playBtn = document.getElementById('musicPlayBtn');
         const muteBtn = document.getElementById('musicMuteBtn');
-        const musicWidget = document.getElementById('ambientMusicControl');
         
-        // Set initial music volume lower for subtle background
         if(bgMusic) {
             bgMusic.volume = 0.28;
             bgMusic.loop = true;
         }
 
-        // ----- HERO IMAGES LOAD CLASS TRIGGER -----
         window.addEventListener('load', () => {
             document.body.classList.add('loaded');
-            
-            // Attempt autoplay with better UX handling: try to play (background music)
             if(bgMusic) {
                 const playPromise = bgMusic.play();
                 if(playPromise !== undefined) {
                     playPromise.catch(e => {
-                        console.log("Autoplay blocked – showing manual controls available already");
-                        // we already have interactive buttons visible, no intrusive popups
-                        // just subtle hint: changing status text softly
                         const statusSpan = document.querySelector('.music-status');
                         if(statusSpan) statusSpan.textContent = '🎧';
                     });
@@ -513,7 +691,6 @@
             }
         });
         
-        // Music control functions with smooth UI feedback
         let isPlaying = false;
         const updatePlayButton = () => {
             if(playBtn) {
@@ -547,14 +724,12 @@
                 if(bgMusic) {
                     bgMusic.muted = !bgMusic.muted;
                     muteBtn.innerHTML = bgMusic.muted ? '🔊 Unmute' : '🔇 Mute';
-                    // slight visual feedback
                     muteBtn.style.opacity = '0.8';
                     setTimeout(() => { muteBtn.style.opacity = '1'; }, 200);
                 }
             });
         }
         
-        // Update status on audio events
         if(bgMusic) {
             bgMusic.addEventListener('play', updatePlayButton);
             bgMusic.addEventListener('pause', updatePlayButton);
@@ -562,46 +737,43 @@
             updatePlayButton();
         }
         
-        // Header scroll effect
         window.addEventListener('scroll', () => {
             if(window.scrollY > 30) header.classList.add('scrolled');
             else header.classList.remove('scrolled');
             
-            // active link highlight on scroll
             let current = '';
             const scrollPosition = window.scrollY + 150;
-            sections.forEach(section => {
+            const allSections = document.querySelectorAll('#hero, #about, #collectors');
+            allSections.forEach(section => {
                 const sectionTop = section.offsetTop;
                 const sectionHeight = section.clientHeight;
                 if(scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                    current = section.getAttribute('id');
+                    current = section.id;
                 }
             });
             navLinks.forEach(link => {
                 link.classList.remove('active');
                 const href = link.getAttribute('href');
-                if(href === `#${current}`) {
+                if(href === `#${current}` || (current === '' && href === '#hero')) {
                     link.classList.add('active');
-                } else if (current === '' && href === '#home') {
+                } else if(current === '' && href === '#hero') {
+                    link.classList.add('active');
+                } else if(current === 'about' && href === '#about') {
                     link.classList.add('active');
                 }
             });
         });
         
-        // Mobile menu toggle with accessibility
         if(menuToggle && navContainer) {
             menuToggle.addEventListener('click', () => {
                 menuToggle.classList.toggle('open');
                 navContainer.classList.toggle('open');
-                // prevent body scroll when open
                 if(navContainer.classList.contains('open')) {
                     document.body.style.overflow = 'hidden';
                 } else {
                     document.body.style.overflow = '';
                 }
             });
-            
-            // close menu on clicking any nav link
             const allMobileNavItems = document.querySelectorAll('.nav-links a, .btn-contact');
             allMobileNavItems.forEach(item => {
                 item.addEventListener('click', () => {
@@ -612,12 +784,12 @@
             });
         }
         
-        // Smooth scroll for anchor links with perfect offset for fixed header
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 const targetId = this.getAttribute('href');
                 if(targetId === "#" || targetId === "") return;
-                const targetElement = document.querySelector(targetId);
+                let targetElement = document.querySelector(targetId);
+                if(!targetElement && targetId === '#hero') targetElement = document.querySelector('.hero-section');
                 if(targetElement) {
                     e.preventDefault();
                     const offsetTop = targetElement.offsetTop - (header.offsetHeight + 20);
@@ -625,13 +797,11 @@
                         top: Math.max(0, offsetTop),
                         behavior: 'smooth'
                     });
-                    // update URL hash without jump
                     history.pushState(null, null, targetId);
                 }
             });
         });
         
-        // ---- INTERSECTION OBSERVER FOR REVEAL ANIMATIONS (fade-up)
         const revealElements = document.querySelectorAll('.fade-up');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -641,20 +811,17 @@
                 }
             });
         }, { threshold: 0.12, rootMargin: "0px 0px -20px 0px" });
-        
         revealElements.forEach(el => observer.observe(el));
         
-        // Preload background images for smoother transition: add subtle lazy load fallback
-        const bgImages = document.querySelectorAll('.hero-bg');
+        const bgImages = document.querySelectorAll('.biography-static-bg, .carousel-slide');
         bgImages.forEach(bg => {
-            const bgUrl = getComputedStyle(bg).backgroundImage.slice(5, -2);
+            const bgUrl = window.getComputedStyle(bg).backgroundImage.slice(5, -2);
             if(bgUrl && bgUrl !== 'none') {
                 const imgLoader = new Image();
                 imgLoader.src = bgUrl;
             }
         });
         
-        // Additional micro UX: on first user interaction (anywhere) reattempt audio if blocked?
         const attemptAudioUnlock = () => {
             if(bgMusic && bgMusic.paused && bgMusic.readyState >= 2) {
                 bgMusic.play().catch(e => {});
@@ -665,7 +832,6 @@
         document.addEventListener('click', attemptAudioUnlock);
         document.addEventListener('touchstart', attemptAudioUnlock);
         
-        // subtle hover effect on quote and gold highlights
         const goldSpans = document.querySelectorAll('.highlight');
         goldSpans.forEach(span => {
             span.addEventListener('mouseenter', () => {
@@ -676,8 +842,7 @@
             });
         });
         
-        // dynamically set page title and favicon
-        console.log("GLK Portfolio — Optimized & Blend UI/UX Active");
+        console.log("GLK Portfolio — Hero Carousel Active (3 images, 7s interval) + Biography Static Background");
     })();
 </script>
 </body>
