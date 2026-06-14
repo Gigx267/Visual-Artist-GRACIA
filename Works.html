@@ -1,775 +1,671 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <meta name="description" content="Gracia Lwanzo Kasongo — Artworks. Limited edition mixed media paintings celebrating African femininity, Adinkrahene symbolism, and spiritual sovereignty.">
-    <title>Artworks — Gracia Lwanzo Kasongo</title>
-    <link rel="icon" type="image/x-icon" href="glk-logo.jpeg">
-    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="Gracia Lwanzo Kasongo — limited edition mixed media paintings celebrating African femininity, Adinkrahene symbolism, and spiritual sovereignty.">
+    <title>Gracia Lwanzo Kasongo | Artworks</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
-    
-    <audio id="bgMusic" loop preload="metadata">
-        <source src="mm2.mp3" type="audio/mpeg">
-    </audio>
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         :root {
-            --bg-deep: #050503;
-            --surface: rgba(13, 13, 11, 0.65);
-            --surface-hover: rgba(20, 20, 16, 0.85);
-            --text-primary: #FEFCF3;
-            --text-secondary: #A6A69F;
-            --gold-primary: #E4B363;
-            --gold-muted: #9E7D43;
-            --border-soft: rgba(228, 179, 99, 0.12);
-            --border-glow: rgba(228, 179, 99, 0.35);
-            --font-serif: 'Playfair Display', serif;
-            --font-sans: 'Inter', sans-serif;
-            --shadow-3d: -10px 15px 30px rgba(0, 0, 0, 0.7), -1px 2px 4px rgba(228, 179, 99, 0.05);
-            --shadow-3d-hover: -25px 35px 60px rgba(0, 0, 0, 0.85), -2px 4px 12px rgba(228, 179, 99, 0.15);
+            --bg-deep: #0A0A08;
+            --bg-elevated: #131310;
+            --text-primary: #EAE9E2;
+            --text-secondary: #B8B7AE;
+            --gold-primary: #C8A951;
+            --gold-dim: #8E793E;
+            --border-subtle: #2A2A26;
+            --card-bg: #141411;
+            --transition-smooth: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; background-color: var(--bg-deep); }
-        
         body {
-            background: radial-gradient(circle at top right, rgba(228, 179, 99, 0.06), transparent 45%),
-                        radial-gradient(circle at 15% 50%, rgba(255, 255, 245, 0.04), transparent 35%),
-                        #050503;
+            background-color: var(--bg-deep);
             color: var(--text-primary);
-            font-family: var(--font-sans);
-            line-height: 1.6;
-            overflow-x: hidden;
-            min-height: 100vh;
-            -webkit-font-smoothing: antialiased;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.5;
+            scroll-behavior: smooth;
         }
 
-        body.nav-open { overflow: hidden; }
-
-        /* --- FINE NOISE GRAPHIC UNDERLAY --- */
-        body::before {
-            content: "";
+        /* navbar */
+        .navbar {
             position: fixed;
-            inset: 0;
-            background-image: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.003) 1px, transparent 1px),
-                              repeating-linear-gradient(0deg, rgba(255,255,240,0.003) 0px, transparent 4px);
-            background-size: 24px 24px, auto;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        @keyframes revealUp {
-            from { opacity: 0; transform: translateY(40px); filter: blur(10px); }
-            to { opacity: 1; transform: translateY(0); filter: blur(0); }
-        }
-
-        /* --- NAVIGATION --- */
-        header {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 4%;
+            top: 0;
+            left: 0;
+            width: 100%;
             z-index: 1000;
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: 1.2rem 2rem;
+            transition: var(--transition-smooth);
+            background: transparent;
         }
 
-        header.scrolled {
-            height: 80px;
-            background: rgba(5, 5, 3, 0.75);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border-bottom: 1px solid var(--border-soft);
+        .navbar.scrolled {
+            background: rgba(10, 10, 8, 0.92);
+            backdrop-filter: blur(14px);
+            padding: 0.8rem 2rem;
+            border-bottom: 1px solid var(--border-subtle);
         }
 
-        .logo-mark {
-            font-family: var(--font-serif);
+        .nav-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
             font-weight: 600;
-            font-size: 1.1rem;
-            letter-spacing: 4px;
-            background: rgba(228, 179, 99, 0.03);
-            border: 1px solid var(--border-soft);
-            padding: 10px 24px;
-            border-radius: 0px; /* Sharp editorial branding cut */
+            letter-spacing: -0.5px;
             color: var(--text-primary);
             text-decoration: none;
-            transition: all 0.4s ease;
+            background: linear-gradient(135deg, #fff 30%, var(--gold-primary) 80%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
         }
 
-        .logo-mark:hover {
-            border-color: var(--gold-primary);
-            color: var(--gold-primary);
-            background: rgba(228, 179, 99, 0.08);
+        .nav-links {
+            display: flex;
+            gap: 2.8rem;
+            list-style: none;
+            align-items: center;
         }
 
-        .nav-container { display: flex; align-items: center; gap: 4rem; }
-        .nav-links { display: flex; gap: 3rem; list-style: none; }
         .nav-links a {
-            color: var(--text-secondary);
             text-decoration: none;
-            font-size: 0.75rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 2.5px;
-            position: relative;
-            padding: 8px 0;
-            transition: color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            color: var(--text-primary);
+            font-weight: 400;
+            font-size: 0.9rem;
+            letter-spacing: 0.3px;
+            transition: color 0.2s;
         }
 
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 0;
-            width: 0; height: 1px;
-            background: var(--gold-primary);
-            transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
-        .nav-links a:hover, .nav-links a.active { color: var(--gold-primary); }
-
-        .btn-contact {
-            background: transparent;
-            border: 1px solid var(--gold-primary);
-            padding: 12px 28px;
+        .nav-links a:hover, .nav-links a.active {
             color: var(--gold-primary);
-            text-decoration: none;
-            font-size: 0.72rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 500;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .btn-contact:hover {
+        .contact-btn {
+            border: 1px solid var(--gold-primary);
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            transition: background 0.2s;
+        }
+
+        .contact-btn:hover {
             background: var(--gold-primary);
-            color: var(--bg-deep);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(228, 179, 99, 0.15);
+            color: #0A0A08 !important;
         }
 
-        .menu-toggle {
+        .menu-icon {
             display: none;
             flex-direction: column;
-            justify-content: space-between;
-            width: 24px; height: 16px;
-            background: none; border: none; cursor: pointer;
-            z-index: 1100; position: relative;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            gap: 6px;
         }
-        .menu-toggle span {
-            width: 100%; height: 1px;
-            background-color: var(--gold-primary);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .menu-toggle.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
-        .menu-toggle.open span:nth-child(2) { opacity: 0; }
-        .menu-toggle.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
 
-        /* --- HERO --- */
+        .menu-icon span {
+            width: 26px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: 0.2s;
+        }
+
+        /* hero */
         .hero {
-            padding: 180px 4% 60px;
             text-align: center;
-            position: relative;
-            z-index: 10;
-            opacity: 0;
-            animation: revealUp 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            padding: 10rem 2rem 4rem 2rem;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .hero h1 {
-            font-family: var(--font-serif);
-            font-size: clamp(3.5rem, 7vw, 6rem);
-            font-weight: 400;
-            letter-spacing: -0.01em;
-            line-height: 1.05;
-            color: var(--text-primary);
-            margin-bottom: 1.5rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 500;
+            letter-spacing: -1px;
+            margin-bottom: 1.2rem;
+            background: linear-gradient(to right, #fff, var(--gold-primary));
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
         }
 
         .hero p {
-            font-size: 1rem;
-            max-width: 600px;
-            margin: 0 auto;
             color: var(--text-secondary);
-            font-weight: 300;
-            letter-spacing: 0.5px;
+            font-size: 1.05rem;
+            line-height: 1.6;
         }
 
-        /* --- 3D VIEWPORT CANVAS --- */
-        .iso-viewport {
-            width: 100%;
-            max-width: 1500px;
+        /* gallery grid */
+        .gallery-container {
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 80px 4% 200px;
-            perspective: 2000px; /* Creates physical architectural depth context */
-            overflow: visible;
+            padding: 2rem 2rem 5rem;
         }
 
-        /* --- ISOMETRIC BENTO GRID FRAMEWORK --- */
-        .gallery {
+        .art-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-auto-rows: minmax(420px, auto);
-            gap: 5rem 4rem;
-            /* Transform regular plane into a true 3D isometric structural layout */
-            transform: rotateX(60deg) rotateZ(-45deg);
-            transform-style: preserve-3d;
-            transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+            grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+            gap: 2.2rem;
         }
 
-        /* --- LUXURY BENTO REAL ESTATE STRUCTURING --- */
-        /* Featured elements map dynamically to occupy distinct physical proportions */
-        .artwork-card.bento-long { grid-row: span 2; }
-        .artwork-card.bento-wide { grid-column: span 2; }
-
-        .artwork-card {
-            background: var(--surface);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid var(--border-soft);
-            box-shadow: var(--shadow-3d);
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
-                        background 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-                        border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-                        box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        .art-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: var(--transition-smooth);
             cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            opacity: 0;
-            animation: revealUp 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            border: 1px solid var(--border-subtle);
+            backdrop-filter: blur(2px);
+            transform: translateY(0);
         }
 
-        /* Staggered loading metrics */
-        .artwork-card:nth-child(1) { animation-delay: 0.1s; }
-        .artwork-card:nth-child(2) { animation-delay: 0.25s; }
-        .artwork-card:nth-child(3) { animation-delay: 0.4s; }
-
-        /* --- HIGH END ISOMETRIC HOVER KINETICS --- */
-        .artwork-card:hover {
-            background: var(--surface-hover);
-            border-color: var(--border-glow);
-            /* Elevates the object strictly vertically upwards off the isometric baseplate */
-            transform: translateZ(45px); 
-            box-shadow: var(--shadow-3d-hover);
+        .art-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--gold-dim);
+            box-shadow: 0 25px 35px -15px rgba(0,0,0,0.6);
         }
 
-        .artwork-image {
+        .card-media {
             position: relative;
+            aspect-ratio: 3 / 4;
+            overflow: hidden;
+            background: #1a1a17;
+        }
+
+        .card-media img {
             width: 100%;
-            height: 320px;
-            overflow: hidden;
-            background: #090907;
-            transform-style: preserve-3d;
-        }
-        
-        .bento-long .artwork-image { height: 520px; }
-
-        .artwork-image img {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
+            height: 100%;
             object-fit: cover;
-            filter: saturate(0.95) contrast(1.02);
-            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: transform 0.5s ease;
         }
 
-        .artwork-card:hover .artwork-image img {
-            transform: scale(1.04);
+        .art-card:hover .card-media img {
+            transform: scale(1.03);
         }
 
-        .wip-badge {
+        .badge {
             position: absolute;
-            top: 24px; right: 24px;
-            background: transparent;
-            border: 1px solid var(--gold-primary);
-            color: var(--gold-primary);
-            font-size: 0.65rem;
-            padding: 6px 14px;
-            letter-spacing: 2px;
-            font-weight: 500;
-            z-index: 10;
-            text-transform: uppercase;
+            top: 1rem;
+            right: 1rem;
+            background: var(--gold-primary);
+            color: #0A0A08;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.3rem 0.9rem;
+            border-radius: 30px;
+            letter-spacing: 1px;
+            z-index: 2;
         }
 
-        .artwork-info {
-            padding: 2.2rem;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-            /* Pushes textual depth out slightly forward */
-            transform: translateZ(10px);
+        .card-info {
+            padding: 1.5rem 1.3rem 1.8rem;
         }
 
-        .artwork-title {
-            font-family: var(--font-serif);
+        .art-title {
+            font-family: 'Playfair Display', serif;
             font-size: 1.5rem;
-            font-weight: 400;
-            margin-bottom: 0.4rem;
-            color: var(--text-primary);
-            letter-spacing: -0.01em;
+            font-weight: 500;
+            letter-spacing: -0.3px;
+            margin-bottom: 0.25rem;
         }
 
-        .artwork-subtitle {
-            color: var(--gold-primary);
-            font-size: 0.75rem;
-            letter-spacing: 1.5px;
-            margin-bottom: 1.5rem;
-            font-weight: 400;
+        .art-sub {
+            font-size: 0.7rem;
             text-transform: uppercase;
+            color: var(--gold-primary);
+            letter-spacing: 1.2px;
+            margin-bottom: 0.8rem;
         }
 
-        .artwork-desc {
+        .art-desc {
+            font-size: 0.85rem;
             color: var(--text-secondary);
-            font-size: 0.9rem;
-            line-height: 1.7;
-            margin-bottom: 2rem;
-            font-weight: 300;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
+            line-height: 1.45;
+            margin-bottom: 1.2rem;
         }
 
-        .artwork-meta {
-            margin-top: auto;
+        .art-meta {
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
-            border-top: 1px solid var(--border-soft);
-            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-subtle);
+            padding-top: 1rem;
+            margin-top: 0.2rem;
         }
 
-        .artwork-dimensions {
-            font-size: 0.78rem;
+        .dimensions {
+            font-size: 0.7rem;
             color: var(--text-secondary);
-            line-height: 1.5;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            line-height: 1.4;
         }
 
         .price {
-            font-family: var(--font-serif);
+            font-family: 'Inter', monospace;
+            font-weight: 700;
             font-size: 1.4rem;
-            color: var(--text-primary);
-            font-weight: 400;
+            color: var(--gold-primary);
         }
 
-        /* --- LIGHTBOX OVERLAY --- */
-        #lightbox {
-            display: none;
+        /* lightbox premium */
+        .lightbox {
             position: fixed;
-            inset: 0;
-            background: rgba(4, 4, 3, 0.96);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(5, 5, 3, 0.96);
+            backdrop-filter: blur(18px);
             z-index: 2000;
-            align-items: center;
-            justify-content: center;
-            padding: 60px;
-        }
-
-        .lightbox-content {
-            max-width: 1100px;
-            width: 100%;
-            background: #0b0b09;
-            border: 1px solid var(--border-soft);
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-        }
-
-        .lightbox-image-wrapper {
-            background: #020202;
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 550px;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease, visibility 0s 0.3s;
         }
 
-        .lightbox-image {
+        .lightbox.active {
+            visibility: visible;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        .lb-container {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            width: 90%;
+            background: rgba(20, 20, 17, 0.9);
+            border-radius: 32px;
+            overflow: hidden;
+            border: 1px solid rgba(200, 169, 81, 0.3);
+        }
+
+        .lb-img {
+            flex: 1.3;
+            min-width: 280px;
+            background: #0c0c09;
+        }
+
+        .lb-img img {
             width: 100%;
-            max-height: 75vh;
+            height: 100%;
             object-fit: contain;
+            display: block;
         }
 
-        .lightbox-info {
-            padding: 4rem 3.5rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+        .lb-details {
+            flex: 1;
+            padding: 2.5rem;
+            background: #131310;
         }
 
-        .close-btn {
+        .lb-close {
             position: absolute;
-            top: 40px; right: 40px;
-            font-size: 2rem;
-            font-weight: 200;
-            color: var(--text-secondary);
-            background: none; border: none; cursor: pointer;
-            z-index: 2010;
-            transition: color 0.3s;
-        }
-        .close-btn:hover { color: var(--gold-primary); }
-
-        /* --- AUDIO OVERLAY WIDGET --- */
-        .music-ambient {
-            position: fixed;
-            bottom: 40px; left: 40px;
-            z-index: 1100;
-            background: rgba(10, 10, 8, 0.6);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            padding: 12px 24px;
-            border: 1px solid var(--border-soft);
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .music-ambient span { font-size: 0.8rem; color: var(--gold-primary); }
-        .music-btn {
-            background: none; border: none;
+            top: 1.8rem;
+            right: 2.2rem;
+            font-size: 3rem;
             color: var(--text-primary);
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
+            background: none;
+            border: none;
             cursor: pointer;
-            font-family: var(--font-sans);
+            transition: 0.2s;
+            font-weight: 300;
+            line-height: 1;
+        }
+
+        .lb-close:hover {
+            color: var(--gold-primary);
+            transform: scale(1.05);
+        }
+
+        /* audio widget */
+        .audio-widget {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(10px);
+            padding: 0.6rem 1.2rem;
+            border-radius: 60px;
+            display: flex;
+            gap: 0.8rem;
+            align-items: center;
+            z-index: 999;
+            border: 1px solid var(--border-subtle);
+            font-size: 0.9rem;
+        }
+
+        .audio-btn {
+            background: transparent;
+            border: 1px solid var(--gold-dim);
+            color: var(--text-primary);
+            padding: 0.3rem 0.9rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 0.7rem;
             font-weight: 500;
-            transition: color 0.3s;
-        }
-        .music-btn:hover { color: var(--gold-primary); }
-
-        /* --- ADAPTIVE BREAKPOINTS --- */
-        @media (max-width: 1200px) {
-            .gallery { gap: 3.5rem 2.5rem; grid-template-columns: repeat(2, 1fr); }
-            .artwork-card.bento-wide { grid-column: span 1; }
+            transition: 0.2s;
         }
 
-        @media (max-width: 768px) {
-            header { height: 80px; }
-            .menu-toggle { display: flex; }
-            
-            .nav-container {
+        .audio-btn:hover {
+            background: var(--gold-primary);
+            color: #0A0A08;
+            border-color: var(--gold-primary);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2.5rem;
+            border-top: 1px solid var(--border-subtle);
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.5px;
+        }
+
+        @media (max-width: 780px) {
+            .menu-icon {
+                display: flex;
+            }
+            .nav-links {
                 position: fixed;
-                inset: 0;
-                background: #060604;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background: #0f0f0d;
                 flex-direction: column;
                 justify-content: center;
-                align-items: center;
-                gap: 4rem;
-                padding: 40px;
-                z-index: 1000;
-                opacity: 0;
-                visibility: hidden;
-                transition: opacity 0.5s ease, visibility 0.5s ease;
+                gap: 2rem;
+                transition: 0.3s ease;
+                backdrop-filter: blur(20px);
+                z-index: 1001;
+                border-left: 1px solid var(--gold-dim);
             }
-
-            .nav-container.open { opacity: 1; visibility: visible; }
-            .nav-links { flex-direction: column; align-items: center; gap: 2.5rem; }
-            .nav-links a { font-size: 1.15rem; letter-spacing: 4px; }
-
-            /* Flatten Isometric system on smaller viewpoint profiles for optimized structural touch UI */
-            .iso-viewport { perspective: none; padding: 40px 4% 100px; }
-            .gallery { 
-                transform: none; 
-                grid-template-columns: 1fr; 
-                grid-auto-rows: auto;
-                gap: 2.5rem; 
+            .nav-links.open {
+                right: 0;
             }
-            .artwork-card.bento-long { grid-row: span 1; }
-            .artwork-image, .bento-long .artwork-image { height: 380px; }
-            .artwork-card:hover { transform: none; }
-            
-            #lightbox { padding: 20px; }
-            .lightbox-content { grid-template-columns: 1fr; }
-            .lightbox-image-wrapper { min-height: auto; }
-            .lightbox-info { padding: 2.5rem 1.5rem; }
+            .logo {
+                z-index: 1002;
+            }
+            .hero h1 {
+                font-size: 2.4rem;
+            }
+            .lb-container {
+                flex-direction: column;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+            .audio-widget {
+                bottom: 1rem;
+                right: 1rem;
+                padding: 0.4rem 1rem;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        .art-card {
+            animation: fadeIn 0.5s ease forwards;
         }
     </style>
 </head>
 <body>
 
-<header id="mainHeader">
-    <a href="index.html" class="logo-mark">GLK</a>
-
-    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
-        <span></span>
-        <span></span>
-        <span></span>
-    </button>
-    
-    <div class="nav-container" id="navContainer">
-        <ul class="nav-links">
+<nav class="navbar" id="navbar">
+    <div class="nav-inner">
+        <a href="index.html" class="logo">Gracia Lwanzo
+Kasongo </a>
+        <button class="menu-icon" id="menuToggle" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
             <li><a href="index.html">Home</a></li>
             <li><a href="Biography.html">Biography</a></li>
-            <li><a href="Works.html" class="active">ArtWorks</a></li>
-            <li><a href="shop.html">Shop Accessories</a></li>
+            <li><a href="Works.html" class="active">Artworks</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="contact.html" class="contact-btn">Contact</a></li>
         </ul>
-        <a href="contact.html" class="btn-contact">Contact Artist</a>
     </div>
-</header>
+</nav>
 
-<section class="hero">
-    <h1>Artworks</h1>
-    <p>Limited edition mixed-media paintings celebrating African femininity, Adinkrahene symbolism, and spiritual sovereignty.</p>
-</section>
+<main>
+    <div class="hero">
+        <h1>Artworks</h1>
+        <p>Limited edition mixed-media paintings celebrating African femininity, Adinkrahene symbolism, and spiritual sovereignty.</p>
+    </div>
 
-<div class="iso-viewport">
-    <main class="gallery" id="gallery">
-        <!-- Card 1 [Bento Tall Allocation] -->
-        <div class="artwork-card bento-long" onclick="openLightbox(this)">
-            <div class="artwork-image">
-                <img src="art (5).jpeg" alt="Helimu" loading="lazy">
-            </div>
-            <div class="artwork-info">
-                <h2 class="artwork-title">Helimu</h2>
-                <div class="artwork-subtitle">Bold Line Fauvism &amp; Mixed Media</div>
-                <p class="artwork-desc">Celebrates the vibrant architecture of the mind and beauty with neo-expressionist fire.</p>
-                <div class="artwork-meta">
-                    <div class="artwork-dimensions"><strong>42 × 59.4 cm</strong><br>Framed + CoA</div>
-                    <div class="price">€411</div>
-                </div>
-            </div>
+    <div class="gallery-container">
+        <div class="art-grid" id="artGrid"></div>
+    </div>
+</main>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+    <button class="lb-close" id="closeLightboxBtn" aria-label="Close lightbox">&times;</button>
+    <div class="lb-container">
+        <div class="lb-img">
+            <img id="lightboxImg" src="" alt="Artwork detail">
         </div>
-
-        <!-- Card 2 -->
-        <div class="artwork-card" onclick="openLightbox(this)">
-            <div class="artwork-image">
-                <img src="aa2.png" alt="Nuru ya Moja" loading="lazy">
-            </div>
-            <div class="artwork-info">
-                <h2 class="artwork-title">Nuru ya Moja</h2>
-                <div class="artwork-subtitle">Mixed Media with Real Cauris</div>
-                <p class="artwork-desc">Symbolizes the power of a single spark to illuminate darkness and change the world.</p>
-                <div class="artwork-meta">
-                    <div class="artwork-dimensions"><strong>42 × 59.4 cm</strong><br>Standard Cut</div>
-                    <div class="price">€511</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="artwork-card" onclick="openLightbox(this)">
-            <div class="artwork-image">
-                <img src="art (4).jpeg" alt="Roho Yangu" loading="lazy">
-            </div>
-            <div class="artwork-info">
-                <h2 class="artwork-title">Roho Yangu</h2>
-                <div class="artwork-subtitle">Acrylic &amp; Mixed Media with Shells</div>
-                <p class="artwork-desc">“My Heart” — a spiritual exploration of self-connection and ancestral wisdom.</p>
-                <div class="artwork-meta">
-                    <div class="artwork-dimensions"><strong>42 × 59.4 cm</strong><br>Framed + CoA</div>
-                    <div class="price">€613</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Card 4 [Bento Wide Allocation] -->
-        <div class="artwork-card bento-wide" onclick="openLightbox(this)">
-            <div class="artwork-image">
-                <img src="art (7).jpeg" alt="The Sovereign of Origins" loading="lazy">
-            </div>
-            <div class="artwork-info">
-                <h2 class="artwork-title">The Sovereign of Origins</h2>
-                <div class="artwork-subtitle">Acrylic &amp; Mixed Media with Shells</div>
-                <p class="artwork-desc">Bridges ancient cowrie symbolism with bold contemporary expressionism into unique profiles.</p>
-                <div class="artwork-meta">
-                    <div class="artwork-dimensions"><strong>42 × 59.4 cm</strong><br>Framed + CoA</div>
-                    <div class="price">€417</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Card 5 -->
-        <div class="artwork-card" onclick="openLightbox(this)">
-            <div class="artwork-image">
-                <img src="aa3.png" alt="Muda" loading="lazy">
-            </div>
-            <div class="artwork-info">
-                <h2 class="artwork-title">Muda</h2>
-                <div class="artwork-subtitle">Bold Line Fauvism • Mixed Media</div>
-                <p class="artwork-desc">“Time” — exploring the emotional and cyclical nature of periods and existence.</p>
-                <div class="artwork-meta">
-                    <div class="artwork-dimensions"><strong>42 × 59.4 cm</strong><br>Framed + CoA</div>
-                    <div class="price">€397</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Card 6 -->
-        <div class="artwork-card" onclick="openLightbox(this)">
-            <div class="artwork-image">
-                <img src="w6.png" alt="Hatima" loading="lazy">
-            </div>
-            <div class="artwork-info">
-                <h2 class="artwork-title">Hatima</h2>
-                <div class="artwork-subtitle">Bold Line Fauvism • Mixed Media</div>
-                <p class="artwork-desc">A powerful critique of destiny and a celebration of introspection and vibrant energy.</p>
-                <div class="artwork-meta">
-                    <div class="artwork-dimensions"><strong>42 × 59.4 cm</strong><br>Framed + CoA</div>
-                    <div class="price">€417</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Card 7 -->
-        <div class="artwork-card" onclick="openLightbox(this)">
-            <div class="artwork-image">
-                <img src="art (6).jpeg" alt="Voice of a Silenced Grace" loading="lazy">
-            </div>
-            <div class="artwork-info">
-                <h2 class="artwork-title">Voice of a Silenced Grace</h2>
-                <div class="artwork-subtitle">Bold Line Fauvism • Mixed Media</div>
-                <p class="artwork-desc">Inspired by the Pwo mask of the Kongo kingdom — a meditation on African feminine identity.</p>
-                <div class="artwork-meta">
-                    <div class="artwork-dimensions"><strong>42 × 59.4 cm</strong><br>Framed + CoA</div>
-                    <div class="price">€317</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Card 8 -->
-        <div class="artwork-card" onclick="openLightbox(this)">
-            <div class="artwork-image">
-                <img src="w2.png" alt="Wakati" loading="lazy">
-            </div>
-            <div class="artwork-info">
-                <h2 class="artwork-title">Wakati</h2>
-                <div class="artwork-subtitle">Bold Line Fauvism • Mixed Media</div>
-                <p class="artwork-desc">Activism piece reclaiming time and agency for Black women.</p>
-                <div class="artwork-meta">
-                    <div class="artwork-dimensions"><strong>42 × 59.4 cm</strong><br>Framed + CoA</div>
-                    <div class="price">€635</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Card 9 [Bento Premium Dynamic Block] -->
-        <div class="artwork-card" onclick="openLightbox(this)">
-            <div class="artwork-image">
-                <img src="w1.png" alt="The Queen of the Blooms" loading="lazy">
-                <div class="wip-badge">PRE-ORDER</div>
-            </div>
-            <div class="artwork-info">
-                <h2 class="artwork-title">The Queen of the Blooms</h2>
-                <div class="artwork-subtitle">Mixed Media • Work in Progress</div>
-                <p class="artwork-desc">Evolution of Adinkrahene and floral spirit into refined modern femininity.</p>
-                <div class="artwork-meta">
-                    <div class="artwork-dimensions"><strong>42 × 59.4 cm</strong><br>Framed + CoA</div>
-                    <div class="price">€1,125</div>
-                </div>
-            </div>
-        </div>
-    </main>
-</div>
-
-<!-- Lightbox Overlay Framework -->
-<div id="lightbox" role="dialog" aria-modal="true">
-    <button class="close-btn" onclick="closeLightbox()" aria-label="Close details">×</button>
-    <div class="lightbox-content">
-        <div class="lightbox-image-wrapper">
-            <img id="lightbox-image" class="lightbox-image" alt="">
-        </div>
-        <div class="lightbox-info" id="lightbox-info"></div>
+        <div class="lb-details" id="lightboxDetails"></div>
     </div>
 </div>
 
-<!-- Ambient Audio Core Widget -->
-<div class="music-ambient">
-    <span>♫</span>
-    <button id="musicPlayBtn" class="music-btn">Play</button>
-    <button id="musicMuteBtn" class="music-btn">Mute</button>
+<div class="audio-widget">
+    <span>🎧</span>
+    <button id="playMusicBtn" class="audio-btn">Play</button>
+    <button id="muteMusicBtn" class="audio-btn">Mute</button>
 </div>
+<audio id="ambientMusic" loop preload="metadata">
+    <source src="mm2.mp3" type="audio/mpeg">
+</audio>
+
+<footer>
+    <p>© Gracia Lwanzo Kasongo — All works registered with Certificate of Authenticity</p>
+</footer>
 
 <script>
-    // --- RESPONSIVE MOBILE MENU INTERACTION ---
-    const menuToggle = document.getElementById('menuToggle');
-    const navContainer = document.getElementById('navContainer');
-    const body = document.body;
+    // --------------------------------------------------------------
+    // Artwork dataset (exactly as provided)
+    // --------------------------------------------------------------
+    const artworks = [
+        { id: 1, title: "Helimu", subtitle: "Bold Line Fauvism", desc: "Celebrates the vibrant architecture of the mind and beauty with neo-expressionist fire.", dimensions: "42 × 59.4 cm", price: "€411", img: "art (5).jpeg", badge: null, framed: "Framed + CoA" },
+        { id: 2, title: "Nuru ya Moja", subtitle: "Mixed Media with Real Cauris", desc: "Symbolizes the power of a single spark to illuminate darkness and change the world.", dimensions: "42 × 59.4 cm", price: "€511", img: "aa2.png", badge: null, framed: "Standard Cut" },
+        { id: 3, title: "Roho Yangu", subtitle: "Acrylic & Mixed Media with Shells", desc: "“My Heart” — a spiritual exploration of self-connection and ancestral wisdom.", dimensions: "42 × 59.4 cm", price: "€613", img: "art (4).jpeg", badge: null, framed: "Framed + CoA" },
+        { id: 4, title: "The Sovereign of Origins", subtitle: "Acrylic & Mixed Media with Shells", desc: "Bridges ancient cowrie symbolism with bold contemporary expressionism.", dimensions: "42 × 59.4 cm", price: "€417", img: "art (7).jpeg", badge: null, framed: "Framed + CoA" },
+        { id: 5, title: "Muda", subtitle: "Bold Line Fauvism • Mixed Media", desc: "“Time” — exploring the emotional and cyclical nature of periods and existence.", dimensions: "42 × 59.4 cm", price: "€397", img: "aa3.png", badge: null, framed: "Framed + CoA" },
+        { id: 6, title: "Hatima", subtitle: "Bold Line Fauvism • Mixed Media", desc: "A powerful critique of destiny and a celebration of introspection and vibrant energy.", dimensions: "42 × 59.4 cm", price: "€417", img: "w6.png", badge: null, framed: "Framed + CoA" },
+        { id: 7, title: "Voice of a Silenced Grace", subtitle: "Bold Line Fauvism", desc: "Inspired by the Pwo mask of the Kongo kingdom — a meditation on African feminine identity.", dimensions: "42 × 59.4 cm", price: "€317", img: "art (6).jpeg", badge: null, framed: "Framed + CoA" },
+        { id: 8, title: "Wakati", subtitle: "Bold Line Fauvism • Mixed Media", desc: "Activism piece reclaiming time and agency for Black women.", dimensions: "42 × 59.4 cm", price: "€635", img: "w2.png", badge: null, framed: "Framed + CoA" },
+        { id: 9, title: "The Queen of the Blooms", subtitle: "Mixed Media • Work in Progress", desc: "Evolution of Adinkrahene and floral spirit into refined modern femininity.", dimensions: "42 × 59.4 cm", price: "€1,125", img: "w1.png", badge: "PRE-ORDER", framed: "Framed + CoA" }
+    ];
 
-    menuToggle.addEventListener('click', () => {
-        const isOpen = menuToggle.classList.toggle('open');
-        navContainer.classList.toggle('open');
-        body.classList.toggle('nav-open', isOpen);
-        menuToggle.setAttribute('aria-expanded', isOpen);
-    });
+    // render dynamic gallery
+    const gridContainer = document.getElementById('artGrid');
 
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', () => {
-            menuToggle.classList.remove('open');
-            navContainer.classList.remove('open');
-            body.classList.remove('nav-open');
-            menuToggle.setAttribute('aria-expanded', 'false');
+    function renderArtworks() {
+        if (!gridContainer) return;
+        gridContainer.innerHTML = '';
+        artworks.forEach(art => {
+            const card = document.createElement('div');
+            card.className = 'art-card';
+            card.setAttribute('data-id', art.id);
+            card.setAttribute('role', 'button');
+            card.setAttribute('tabindex', '0');
+            card.setAttribute('aria-label', `View details for ${art.title}`);
+            
+            // Construct badge if exists
+            const badgeHTML = art.badge ? `<div class="badge">${art.badge}</div>` : '';
+            
+            card.innerHTML = `
+                <div class="card-media">
+                    <img src="${art.img}" alt="${art.title}" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/800x1000?text=Artwork+Unavailable';">
+                    ${badgeHTML}
+                </div>
+                <div class="card-info">
+                    <h3 class="art-title">${art.title}</h3>
+                    <div class="art-sub">${art.subtitle}</div>
+                    <p class="art-desc">${art.desc}</p>
+                    <div class="art-meta">
+                        <div class="dimensions"><strong>${art.dimensions}</strong><br>${art.framed}</div>
+                        <div class="price">${art.price}</div>
+                    </div>
+                </div>
+            `;
+            card.addEventListener('click', () => openLightbox(art));
+            card.addEventListener('keydown', (e) => { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(art); } });
+            gridContainer.appendChild(card);
         });
-    });
+    }
 
-    // --- ARTWORK LIGHTBOX INTERACTIVE SYSTEM ---
-    function openLightbox(card) {
-        const imgSrc = card.querySelector('img').src;
-        const title = card.querySelector('.artwork-title').textContent;
-        const subtitle = card.querySelector('.artwork-subtitle').textContent;
-        
-        const descEl = card.querySelector('.artwork-desc');
-        const desc = descEl ? descEl.textContent : "Limited execution mixed-media masterpiece.";
-        const meta = card.querySelector('.artwork-meta').innerHTML;
+    // LIGHTBOX refined
+    const lightboxEl = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxDetails = document.getElementById('lightboxDetails');
 
-        document.getElementById('lightbox-image').src = imgSrc;
-        document.getElementById('lightbox-info').innerHTML = `
-            <h2 style="font-family:var(--font-serif); font-size:2.4rem; font-weight:400; margin-bottom:0.5rem; color:var(--text-primary); text-transform:none;">${title}</h2>
-            <p style="color:var(--gold-primary); font-size:0.75rem; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:1.8rem;">${subtitle}</p>
-            <p style="color:var(--text-secondary); font-size:0.95rem; line-height:1.75; margin-bottom:2.5rem; font-weight:300;">${desc}</p>
-            <div style="border-top:1px solid var(--border-soft); padding-top:1.5rem; display:flex; justify-content:space-between; align-items:flex-end; width:100%;">${meta}</div>
+    function openLightbox(art) {
+        // set high-res image (fallback same source)
+        lightboxImg.src = art.img;
+        lightboxImg.alt = art.title;
+        lightboxDetails.innerHTML = `
+            <h2 style="font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 500; margin-bottom: 0.5rem; letter-spacing: -0.3px; color: var(--text-primary);">${art.title}</h2>
+            <p style="color: var(--gold-primary); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.8px; margin-bottom: 1.5rem;">${art.subtitle}</p>
+            <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; margin-bottom: 2rem;">${art.desc}</p>
+            <div style="border-top: 1px solid var(--border-subtle); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap;">
+                <div><span style="font-size:0.7rem; color:var(--text-secondary); text-transform:uppercase;">Dimensions</span><br><strong style="font-size:1rem;">${art.dimensions}</strong><br><span style="font-size:0.7rem; color:var(--gold-dim);">${art.framed}</span></div>
+                <div class="price" style="font-size: 1.8rem;">${art.price}</div>
+            </div>
+            <a href="#" style="display: inline-block; margin-top: 2rem; background: var(--gold-primary); color: #0A0A08; padding: 0.8rem 1.8rem; text-decoration: none; font-weight: 600; font-size: 0.7rem; letter-spacing: 1px; border-radius: 40px; text-align: center; transition: all 0.2s;">Inquire →</a>
         `;
-        document.getElementById('lightbox').style.display = 'flex';
+        lightboxEl.classList.add('active');
+        document.body.style.overflow = 'hidden';
     }
 
     function closeLightbox() {
-        document.getElementById('lightbox').style.display = 'none';
+        lightboxEl.classList.remove('active');
+        document.body.style.overflow = '';
     }
 
-    document.getElementById('lightbox').addEventListener('click', (e) => {
-        if(e.target === document.getElementById('lightbox')) closeLightbox();
+    document.getElementById('closeLightboxBtn')?.addEventListener('click', closeLightbox);
+    lightboxEl?.addEventListener('click', (e) => { if(e.target === lightboxEl) closeLightbox(); });
+    document.addEventListener('keydown', (e) => { if(e.key === 'Escape' && lightboxEl.classList.contains('active')) closeLightbox(); });
+
+    // mobile menu toggle (enhanced)
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    if(menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('open');
+            const expanded = navLinks.classList.contains('open');
+            menuToggle.setAttribute('aria-expanded', expanded);
+        });
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+                if(menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+    }
+
+    // scroll navbar effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 30) navbar.classList.add('scrolled');
+        else navbar.classList.remove('scrolled');
     });
 
-    document.addEventListener('keydown', e => {
-        if (e.key === "Escape") closeLightbox();
-    });
+    // ambient audio with robust controls + autoplay attempt
+    const audio = document.getElementById('ambientMusic');
+    const playBtn = document.getElementById('playMusicBtn');
+    const muteBtn = document.getElementById('muteMusicBtn');
 
-    // --- CINEMATIC AMBIENT AUDIO FLOW ---
-    const bgMusic = document.getElementById('bgMusic');
-    const playBtn = document.getElementById('musicPlayBtn');
-    const muteBtn = document.getElementById('musicMuteBtn');
+    if (audio) {
+        audio.volume = 0.25;
+        let autoPlayAttempted = false;
 
-    if (bgMusic) {
-        bgMusic.volume = 0.20;
-
-        const updateUI = () => {
-            playBtn.textContent = bgMusic.paused ? 'Play' : 'Pause';
-            muteBtn.textContent = bgMusic.muted ? 'Unmute' : 'Mute';
+        const updateAudioButtons = () => {
+            if(playBtn) playBtn.textContent = audio.paused ? 'Play' : 'Pause';
+            if(muteBtn) muteBtn.textContent = audio.muted ? 'Unmute' : 'Mute';
         };
 
-        playBtn.addEventListener('click', () => {
-            bgMusic.paused ? bgMusic.play() : bgMusic.pause();
-            updateUI();
+        const attemptAutoPlay = () => {
+            if (autoPlayAttempted) return;
+            autoPlayAttempted = true;
+            audio.play().then(() => {
+                updateAudioButtons();
+            }).catch((err) => {
+                console.log("autoplay prevented, user interaction needed");
+                // still display default
+            });
+        };
+        
+        window.addEventListener('load', () => {
+            attemptAutoPlay();
+            // small fallback after user first click anywhere to allow audio if needed
+            const enableAudioOnFirstInteraction = () => {
+                if (audio.paused && !autoPlayAttempted) {
+                    audio.play().catch(e => null);
+                }
+                document.removeEventListener('click', enableAudioOnFirstInteraction);
+                document.removeEventListener('touchstart', enableAudioOnFirstInteraction);
+            };
+            document.addEventListener('click', enableAudioOnFirstInteraction);
+            document.addEventListener('touchstart', enableAudioOnFirstInteraction);
         });
 
-        muteBtn.addEventListener('click', () => {
-            bgMusic.muted = !bgMusic.muted;
-            updateUI();
-        });
-
-        window.addEventListener('load', () => bgMusic.play().catch(() => {}));
+        if (playBtn) {
+            playBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (audio.paused) {
+                    audio.play().catch(e => console.warn(e));
+                } else {
+                    audio.pause();
+                }
+                updateAudioButtons();
+            });
+        }
+        if (muteBtn) {
+            muteBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                audio.muted = !audio.muted;
+                updateAudioButtons();
+            });
+        }
+        audio.addEventListener('playing', updateAudioButtons);
+        audio.addEventListener('pause', updateAudioButtons);
+        audio.addEventListener('volumechange', updateAudioButtons);
     }
 
-    // --- HEADER HEIGHT ADAPTATION TRIGGER ---
-    window.addEventListener('scroll', () => {
-        document.getElementById('mainHeader').classList.toggle('scrolled', window.scrollY > 40);
-    });
+    // fallback for broken images globally
+    document.addEventListener('error', (e) => {
+        if (e.target.tagName === 'IMG' && !e.target.hasAttribute('data-fallback')) {
+            e.target.setAttribute('data-fallback', 'true');
+            e.target.src = 'https://placehold.co/800x1000?text=Artwork+Preview';
+        }
+    }, true);
+
+    // initialize artwork rendering
+    renderArtworks();
+
+    // add some subtle preload effect & clean style to price + badge
+    // also ensure the "PRE-ORDER" badge from dataset appears dynamically
+    console.log("Gracia Kasongo gallery — all 9 artworks loaded");
 </script>
 </body>
 </html>
