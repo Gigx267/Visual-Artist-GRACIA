@@ -211,6 +211,11 @@
             z-index: 2;
         }
 
+        .badge.sold {
+            background: #8B0000;
+            color: #fff;
+        }
+
         .card-info {
             padding: 1.5rem 1.3rem 1.8rem;
         }
@@ -258,6 +263,11 @@
             font-weight: 700;
             font-size: 1.4rem;
             color: var(--gold-primary);
+        }
+
+        .price.sold-price {
+            color: #666;
+            text-decoration: line-through;
         }
 
         /* lightbox premium */
@@ -431,8 +441,7 @@
 
 <nav class="navbar" id="navbar">
     <div class="nav-inner">
-        <a href="index.html" class="logo">Gracia Lwanzo
-Kasongo </a>
+        <a href="index.html" class="logo">Gracia Lwanzo Kasongo</a>
         <button class="menu-icon" id="menuToggle" aria-label="Menu">
             <span></span><span></span><span></span>
         </button>
@@ -482,18 +491,67 @@ Kasongo </a>
 
 <script>
     // --------------------------------------------------------------
-    // Artwork dataset (exactly as provided)
+    // Artwork dataset — UPDATED with new information
     // --------------------------------------------------------------
     const artworks = [
-        { id: 1, title: "Helimu", subtitle: "Bold Line Fauvism", desc: "Celebrates the vibrant architecture of the mind and beauty with neo-expressionist fire.", dimensions: "42 × 59.4 cm", price: "€411", img: "art (5).jpeg", badge: null, framed: "Framed + CoA" },
-        { id: 2, title: "Nuru ya Moja", subtitle: "Mixed Media with Real Cauris", desc: "Symbolizes the power of a single spark to illuminate darkness and change the world.", dimensions: "42 × 59.4 cm", price: "€511", img: "aa2.png", badge: null, framed: "Standard Cut" },
-        { id: 3, title: "Roho Yangu", subtitle: "Acrylic & Mixed Media with Shells", desc: "“My Heart” — a spiritual exploration of self-connection and ancestral wisdom.", dimensions: "42 × 59.4 cm", price: "€613", img: "art (4).jpeg", badge: null, framed: "Framed + CoA" },
-        { id: 4, title: "The Sovereign of Origins", subtitle: "Acrylic & Mixed Media with Shells", desc: "Bridges ancient cowrie symbolism with bold contemporary expressionism.", dimensions: "42 × 59.4 cm", price: "€417", img: "art (7).jpeg", badge: null, framed: "Framed + CoA" },
-        { id: 5, title: "Muda", subtitle: "Bold Line Fauvism • Mixed Media", desc: "“Time” — exploring the emotional and cyclical nature of periods and existence.", dimensions: "42 × 59.4 cm", price: "€397", img: "aa3.png", badge: null, framed: "Framed + CoA" },
-        { id: 6, title: "Hatima", subtitle: "Bold Line Fauvism • Mixed Media", desc: "A powerful critique of destiny and a celebration of introspection and vibrant energy.", dimensions: "42 × 59.4 cm", price: "€417", img: "w6.png", badge: null, framed: "Framed + CoA" },
-        { id: 7, title: "Voice of a Silenced Grace", subtitle: "Bold Line Fauvism", desc: "Inspired by the Pwo mask of the Kongo kingdom — a meditation on African feminine identity.", dimensions: "42 × 59.4 cm", price: "€317", img: "art (6).jpeg", badge: null, framed: "Framed + CoA" },
-        { id: 8, title: "Wakati", subtitle: "Bold Line Fauvism • Mixed Media", desc: "Activism piece reclaiming time and agency for Black women.", dimensions: "42 × 59.4 cm", price: "€635", img: "w2.png", badge: null, framed: "Framed + CoA" },
-        { id: 9, title: "The Queen of the Blooms", subtitle: "Mixed Media • Work in Progress", desc: "Evolution of Adinkrahene and floral spirit into refined modern femininity.", dimensions: "42 × 59.4 cm", price: "€1,125", img: "w1.png", badge: "PRE-ORDER", framed: "Framed + CoA" }
+        { 
+            id: 1, 
+            title: "🫧The Bloom of Consciousness🫧", 
+            subtitle: "Bold Line Fauvism", 
+            desc: "Celebrates the vibrant architecture of the mind and beauty with neo-expressionist fire.", 
+            dimensions: "30 × 40 cm", 
+            price: "€330", 
+            img: "xz (9).jpeg", 
+            badge: null, 
+            framed: "Framed + CoA" 
+        },
+        { 
+            id: 2, 
+            title: "🫧The Awakening of Mawu🫧", 
+            subtitle: "Mixed Media with Real Cauris", 
+            desc: "Symbolizes the power of a single spark to illuminate darkness and change the world.", 
+            dimensions: "30 × 40 cm", 
+            price: "€390", 
+            img: "xz (10).jpeg",
+            badge: null, 
+            framed: "Standard Cut" 
+        },
+        { 
+            id: 3, 
+            title: "Ua wa roho", 
+            subtitle: "Acrylic & Mixed Media with Shells", 
+            desc: "“Spirit of the Heart” — a spiritual exploration of self-connection and ancestral wisdom. This piece is now finished.", 
+            dimensions: "42 × 59.4 cm", 
+            price: "€613", 
+               img: "xz (12).jpeg",
+            badge: "SOLD", 
+            framed: "Framed + CoA",
+            sold: true
+        },
+        { 
+            id: 9, 
+            title: "Beauty in the Burden", 
+            subtitle: "Mixed Media • Work in Progress", 
+            desc: "Evolution of Adinkrahene and floral spirit into refined modern femininity.", 
+            dimensions: "42 × 59.4 cm", 
+            price: "€1,230", 
+            img: "xzz.png", 
+            badge: "PRE-ORDER", 
+            framed: "Framed + CoA" 
+        },
+        { 
+            id: 4, 
+            title: "Title 🫧 Rhythms of Breath🫧🌸  ", 
+            subtitle: "Acrylic & Mixed Media with Shells", 
+            desc: " Symbolism with bold contemporary expressionism.", 
+            dimensions: "42 × 59.4 cm", 
+            price: "€417", 
+            img: "xzz2.png", 
+            badge: null, 
+            framed: "Framed + CoA" 
+        },
+        
+        
     ];
 
     // render dynamic gallery
@@ -511,7 +569,14 @@ Kasongo </a>
             card.setAttribute('aria-label', `View details for ${art.title}`);
             
             // Construct badge if exists
-            const badgeHTML = art.badge ? `<div class="badge">${art.badge}</div>` : '';
+            let badgeHTML = '';
+            if (art.badge) {
+                const badgeClass = art.sold ? 'badge sold' : 'badge';
+                badgeHTML = `<div class="${badgeClass}">${art.badge}</div>`;
+            }
+            
+            // Price styling for sold items
+            const priceClass = art.sold ? 'price sold-price' : 'price';
             
             card.innerHTML = `
                 <div class="card-media">
@@ -524,7 +589,7 @@ Kasongo </a>
                     <p class="art-desc">${art.desc}</p>
                     <div class="art-meta">
                         <div class="dimensions"><strong>${art.dimensions}</strong><br>${art.framed}</div>
-                        <div class="price">${art.price}</div>
+                        <div class="${priceClass}">${art.price}</div>
                     </div>
                 </div>
             `;
@@ -543,15 +608,25 @@ Kasongo </a>
         // set high-res image (fallback same source)
         lightboxImg.src = art.img;
         lightboxImg.alt = art.title;
+        
+        // Price styling for lightbox
+        const priceHTML = art.sold ? 
+            `<span style="color: #666; text-decoration: line-through; font-size: 1.8rem;">${art.price}</span> <span style="color: #8B0000; font-size: 1rem; margin-left: 0.5rem;">(SOLD)</span>` :
+            `<span class="price" style="font-size: 1.8rem;">${art.price}</span>`;
+        
+        const inquiryLink = art.sold ? 
+            `<span style="display: inline-block; margin-top: 2rem; background: #444; color: #888; padding: 0.8rem 1.8rem; text-decoration: none; font-weight: 600; font-size: 0.7rem; letter-spacing: 1px; border-radius: 40px; text-align: center; cursor: not-allowed;">Sold Out</span>` :
+            `<a href="#" style="display: inline-block; margin-top: 2rem; background: var(--gold-primary); color: #0A0A08; padding: 0.8rem 1.8rem; text-decoration: none; font-weight: 600; font-size: 0.7rem; letter-spacing: 1px; border-radius: 40px; text-align: center; transition: all 0.2s;">Inquire →</a>`;
+        
         lightboxDetails.innerHTML = `
             <h2 style="font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 500; margin-bottom: 0.5rem; letter-spacing: -0.3px; color: var(--text-primary);">${art.title}</h2>
             <p style="color: var(--gold-primary); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.8px; margin-bottom: 1.5rem;">${art.subtitle}</p>
             <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; margin-bottom: 2rem;">${art.desc}</p>
             <div style="border-top: 1px solid var(--border-subtle); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap;">
                 <div><span style="font-size:0.7rem; color:var(--text-secondary); text-transform:uppercase;">Dimensions</span><br><strong style="font-size:1rem;">${art.dimensions}</strong><br><span style="font-size:0.7rem; color:var(--gold-dim);">${art.framed}</span></div>
-                <div class="price" style="font-size: 1.8rem;">${art.price}</div>
+                <div>${priceHTML}</div>
             </div>
-            <a href="#" style="display: inline-block; margin-top: 2rem; background: var(--gold-primary); color: #0A0A08; padding: 0.8rem 1.8rem; text-decoration: none; font-weight: 600; font-size: 0.7rem; letter-spacing: 1px; border-radius: 40px; text-align: center; transition: all 0.2s;">Inquire →</a>
+            ${inquiryLink}
         `;
         lightboxEl.classList.add('active');
         document.body.style.overflow = 'hidden';
@@ -611,13 +686,11 @@ Kasongo </a>
                 updateAudioButtons();
             }).catch((err) => {
                 console.log("autoplay prevented, user interaction needed");
-                // still display default
             });
         };
         
         window.addEventListener('load', () => {
             attemptAutoPlay();
-            // small fallback after user first click anywhere to allow audio if needed
             const enableAudioOnFirstInteraction = () => {
                 if (audio.paused && !autoPlayAttempted) {
                     audio.play().catch(e => null);
@@ -663,9 +736,8 @@ Kasongo </a>
     // initialize artwork rendering
     renderArtworks();
 
-    // add some subtle preload effect & clean style to price + badge
-    // also ensure the "PRE-ORDER" badge from dataset appears dynamically
     console.log("Gracia Kasongo gallery — all 9 artworks loaded");
+    console.log("Updates applied: The Bloom of Consciousness (30×40cm, €330), The Awakening of Mawu (30×40cm, €390), Ua wa roho marked SOLD, Beauty in the Burden (€1,230)");
 </script>
 </body>
 </html>
